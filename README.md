@@ -1,5 +1,7 @@
 # dotnet-signalr-realtime
 
+![CI](https://github.com/Shaisolaris/dotnet-signalr-realtime/actions/workflows/ci.yml/badge.svg)
+
 ASP.NET Core 8 real-time platform with 3 SignalR hubs: ChatHub (rooms, typing, presence, DMs), NotificationHub (per-user push, topics, broadcasts), and DashboardHub (live metric streaming). Includes server-side push via REST API, connection tracking, and MessagePack protocol support.
 
 ## Stack
