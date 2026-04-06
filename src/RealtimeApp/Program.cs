@@ -1,3 +1,4 @@
+// Demo mode: InMemory database with seed data loaded on startup
 using RealtimeApp.Hubs;
 using RealtimeApp.Services;
 
