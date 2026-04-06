@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html><head><title>SignalR Chat</title>
+<style>body{font-family:system-ui;max-width:600px;margin:40px auto;padding:20px}#messages{height:400px;overflow-y:auto;border:1px solid #ddd;border-radius:8px;padding:16px;margin-bottom:16px}
+.msg{padding:8px 12px;margin:4px 0;border-radius:8px;background:#f0f0f0}.msg .user{font-weight:bold;color:#007bff}
+input,button{padding:10px;border-radius:6px;border:1px solid #ddd}button{background:#007bff;color:#fff;border:none;cursor:pointer}
+.form{display:flex;gap:8px}h1{font-size:24px}</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script></head>
+<body>
+<h1>💬 SignalR Real-time Chat</h1>
+<div id="messages"></div>
+<div class="form">
+  <input id="user" placeholder="Your name" style="width:120px"/>
+  <input id="msg" placeholder="Type a message..." style="flex:1"/>
+  <button onclick="send()">Send</button>
+</div>
+<script>
+const conn = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAutomaticReconnect().build();
+conn.on("ReceiveMessage", (user, msg) => {
+  const div = document.createElement("div");
+  div.className = "msg";
+  div.innerHTML = '<span class="user">' + user + ':</span> ' + msg;
+  document.getElementById("messages").appendChild(div);
+  document.getElementById("messages").scrollTop = 99999;
+});
+conn.start().then(() => document.getElementById("user").value = "User_" + Math.random().toString(36).substr(2,4));
+function send() {
+  const user = document.getElementById("user").value;
+  const msg = document.getElementById("msg").value;
+  if (msg.trim()) { conn.invoke("SendMessage", user, msg); document.getElementById("msg").value = ""; }
+}
+document.getElementById("msg").addEventListener("keypress", e => { if(e.key==="Enter") send(); });
+</script></body></html>
