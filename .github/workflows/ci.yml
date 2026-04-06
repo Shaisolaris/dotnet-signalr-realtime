@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
-      - run: dotnet restore src/RealtimeApp/RealtimeApp.csproj
-      - run: dotnet build src/RealtimeApp/RealtimeApp.csproj --no-restore
+          dotnet-version: '8.0.x'
+      - run: dotnet restore ./src/RealtimeApp/RealtimeApp.csproj
+      - run: dotnet build ./src/RealtimeApp/RealtimeApp.csproj --no-restore --warnaserror-
